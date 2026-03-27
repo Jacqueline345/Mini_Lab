@@ -22,6 +22,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_wtf.csrf import CSRFProtect
 import sqlite3
 import os
 from pathlib import Path
@@ -43,6 +44,8 @@ if not app.config["SECRET_KEY"]:
         "Ejecútela antes de iniciar la aplicación:\n"
         "  export FLASK_SECRET_KEY='<clave-aleatoria-larga>'"
     )
+
+csrf = CSRFProtect(app)
 
 # ---------------------------------------------------------------
 # Conexión a la base de datos
