@@ -7,3 +7,4 @@ services:
       - ./db:/app/db
     environment:
       - FLASK_ENV=development
+      - FLASK_SECRET_KEY=mi-clave-segura-aleatoria-123

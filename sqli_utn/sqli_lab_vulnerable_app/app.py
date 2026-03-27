@@ -23,6 +23,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -35,8 +36,13 @@ app = Flask(__name__)
 # En una aplicación real debe cargarse desde una variable de
 # entorno y nunca commitearse al repositorio.
 # ---------------------------------------------------------------
-app.config["SECRET_KEY"] = "dev-secret-key-insegura-1234"
-
+app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY", "")
+if not app.config["SECRET_KEY"]:
+    raise RuntimeError(
+        "La variable de entorno FLASK_SECRET_KEY no está definida. "
+        "Ejecútela antes de iniciar la aplicación:\n"
+        "  export FLASK_SECRET_KEY='<clave-aleatoria-larga>'"
+    )
 
 # ---------------------------------------------------------------
 # Conexión a la base de datos
