@@ -8,3 +8,4 @@ services:
     environment:
       - FLASK_ENV=development
       - FLASK_SECRET_KEY=mi-clave-segura-aleatoria-123
+      - FLASK_DEBUG=0
